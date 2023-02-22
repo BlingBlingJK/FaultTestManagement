@@ -62,7 +62,7 @@ export default {
             message: "用户名不能为空！", // 提示语
             trigger: "blur",
           },
-          // 自定义校验的写法
+          // 自定义校验的写法，函数写在另外的文件里
           { validator: validateUsername, trigger: "blur" },
         ],
         password: [
@@ -90,14 +90,11 @@ export default {
   methods: {
     async getCaptchacode() {
       let res = await GetCaptChaCodeApi();
-      if (res.code == 200) {
-        // 展示验证码图片
-        this.captchaSrc = "data:image/gif;base64," + res.img;
-        // 保存uuid，给到登录时候作为参数传过去后端
-        localStorage.setItem("edb-captcha-uuid", res.uuid);
-      } else {
-        this.$message.error(res.msg);
-      }
+      if (!res) return;
+      // 展示验证码图片
+      this.captchaSrc = "data:image/gif;base64," + res.img;
+      // 保存uuid，给到登录时候作为参数传过去后端
+      localStorage.setItem("edb-captcha-uuid", res.uuid);
     },
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
@@ -109,11 +106,15 @@ export default {
             uuid: localStorage.getItem("edb-captcha-uuid"),
           });
           //业务的成功和失败
-          if (res.code == 200) {
-            console.log(res);
-          } else {
-            this.$message.error(res.msg);
-          }
+          if (!res) return;
+          //提示登录成功
+          this.$message.success("登录成功！");
+          //清除uuid
+          localStorage.removeItem("edb-captcha-uuid");
+          //保存token
+          localStorage.setItem("edb-authorization-token", res.token);
+          //跳转首页
+          this.$router.push("/");
         } else {
           this.$message({
             type: "warning",

@@ -1,4 +1,5 @@
 import Vue from "vue";
+//清除默认样式
 import "reset-css";
 import App from "./App.vue";
 import "./plugins/element.js";
