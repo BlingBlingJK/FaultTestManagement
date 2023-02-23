@@ -112,6 +112,7 @@ export default {
     }
   }
 }
+//在折叠的情况下 display: none；若没折叠则没这个类
 .isCollapse .el-submenu__title span,
 ::v-deep .el-menu--collapse .el-submenu__icon-arrow {
   display: none;
