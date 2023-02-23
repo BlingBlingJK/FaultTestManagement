@@ -13,33 +13,26 @@
       :unique-opened="true"
       :collapse="isCollapse"
       :collapse-transition="false"
+      :router="true"
     >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <!-- <el-menu-item-group> -->
-        <!-- <template slot="title">分组一</template> -->
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <!-- </el-menu-item-group> -->
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航三</span>
-        </template>
-        <!-- <el-menu-item-group> -->
-        <!-- <template slot="title">分组一</template> -->
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <!-- </el-menu-item-group> -->
-      </el-submenu>
+      <div v-for="(item, idx) in menuData" :key="idx">
+        <el-submenu :index="item.path" v-if="item.children">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>{{ item.title }}</span>
+          </template>
+          <el-menu-item
+            :index="it.path"
+            v-for="(it, id) in item.children"
+            :key="id"
+            >{{ it.title }}</el-menu-item
+          >
+        </el-submenu>
+        <el-menu-item :index="item.path" v-else>
+          <i class="el-icon-menu"></i>
+          <span slot="title">{{ item.title }}</span>
+        </el-menu-item>
+      </div>
     </el-menu>
   </div>
 </template>
@@ -48,7 +41,36 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      menuData: [
+        {
+          title: "首页",
+          path: "/",
+        },
+        {
+          title: "客户管理",
+          path: "/customer",
+          children: [
+            { title: "客户档案", path: "/customer" },
+            { title: "拜访记录", path: "/visit" },
+          ],
+        },
+        {
+          title: "修养预约",
+          path: "/business",
+          children: [
+            { title: "预约信息", path: "/appointment" },
+            { title: "服务项", path: "/service" },
+            { title: "结算单", path: "/statement" },
+          ],
+        },
+        {
+          title: "流程管理",
+          path: "/flow",
+          children: [{ title: "审核流程定义", path: "/definition" }],
+        },
+      ],
+    };
   },
   computed: {
     ...mapState({
@@ -66,6 +88,7 @@ export default {
   box-shadow: 5px 0 5px #bbb;
   position: relative; //阴影重叠消除
   transition: all 1s; //收缩动画，延时一秒
+
   .el-menu {
     border: none;
   }
@@ -88,5 +111,9 @@ export default {
       top: 16px;
     }
   }
+}
+.isCollapse .el-submenu__title span,
+::v-deep .el-menu--collapse .el-submenu__icon-arrow {
+  display: none;
 }
 </style>
