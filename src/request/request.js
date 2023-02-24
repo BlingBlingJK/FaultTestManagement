@@ -8,6 +8,14 @@ const instance = axios.create({
 //请求拦截器
 instance.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("edb-authorization-token");
+    if (
+      token &&
+      !config.url.endsWith("/login") &&
+      !config.url.endsWith("/captchaImage")
+    ) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
     return config;
   },
   (err) => {
