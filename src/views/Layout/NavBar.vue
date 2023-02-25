@@ -41,40 +41,12 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      menuData: [
-        {
-          title: "首页",
-          path: "/",
-        },
-        {
-          title: "客户管理",
-          path: "/customer",
-          children: [
-            { title: "客户档案", path: "/customer" },
-            { title: "拜访记录", path: "/visit" },
-          ],
-        },
-        {
-          title: "修养预约",
-          path: "/business",
-          children: [
-            { title: "预约信息", path: "/appointment" },
-            { title: "服务项", path: "/service" },
-            { title: "结算单", path: "/statement" },
-          ],
-        },
-        {
-          title: "流程管理",
-          path: "/flow",
-          children: [{ title: "审核流程定义", path: "/definition" }],
-        },
-      ],
-    };
+    return {};
   },
   computed: {
     ...mapState({
       isCollapse: (state) => state.navCollapse.isCollapse,
+      menuData: (state) => state.userMenuData.menuData,
     }),
   },
 };
@@ -87,7 +59,7 @@ export default {
   background-color: #304156;
   box-shadow: 5px 0 5px #bbb;
   position: relative; //阴影重叠消除
-  transition: all 1s; //收缩动画，延时一秒
+  transition: all 0.5s; //收缩动画，延时一秒
 
   .el-menu {
     border: none;
@@ -109,6 +81,7 @@ export default {
       //脱标处理
       position: absolute;
       top: 16px;
+      padding-left: 10px;
     }
   }
 }

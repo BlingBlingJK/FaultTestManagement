@@ -30,6 +30,7 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   const token = localStorage.getItem("edb-authorization-token");
+  //两个经典的逻辑
   // 如果访问登陆页面，但是有token，跳转到首页
   if (to.path === "/login" && token) {
     next("/");
@@ -44,6 +45,31 @@ router.beforeEach(async (to, from, next) => {
   if (token && store.state.userMenuData.menuData.length === 0) {
     let GetUserRouterApiRes = await GetUserRouterApi();
     console.log(GetUserRouterApiRes);
+    let newUserMenuData = [
+      {
+        title: "首页",
+        path: "/",
+      },
+    ];
+    let ret = GetUserRouterApiRes.data.map((item) => {
+      if (item.children) {
+        return {
+          title: item.meta.title,
+          path: item.path,
+          children: item.children.map((c) => {
+            return {
+              title: c.meta.title,
+              path: item.path + "/" + c.path, //和父拼起来
+            };
+          }),
+        };
+      } else {
+        return { title: item.meta.title, path: item.path };
+      }
+    });
+    newUserMenuData = [...newUserMenuData, ...ret];
+    store.commit("userMenuData/changeMenuData", newUserMenuData);
+    console.log(newUserMenuData);
   }
   next();
 });

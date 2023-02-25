@@ -3,5 +3,9 @@ export default {
   state: {
     menuData: [],
   },
-  Mutations: {},
+  mutations: {
+    changeMenuData(state, payload) {
+      state.menuData = payload;
+    },
+  },
 };
