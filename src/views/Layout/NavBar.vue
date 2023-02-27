@@ -18,7 +18,11 @@
       <div v-for="(item, idx) in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <!-- <i class="el-icon-location"></i> -->
+            <svg-icon
+              icon-file-name="404"
+              style="margin: 0 10px 0 4px"
+            ></svg-icon>
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item
@@ -41,12 +45,42 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      menuData: [
+        {
+          title: "首页",
+          path: "/",
+        },
+        {
+          title: "客户管理",
+          path: "/customer",
+          children: [
+            { title: "客户档案", path: "/customer/customer" },
+            { title: "拜访记录", path: "/customer/visit" },
+          ],
+        },
+        {
+          title: "修养预约",
+          path: "/business",
+          children: [
+            { title: "预约信息", path: "/business/appointment" },
+            { title: "服务项", path: "/business/service" },
+            { title: "结算单", path: "/business/statement" },
+          ],
+        },
+        {
+          title: "流程管理",
+          path: "/flow",
+          children: [{ title: "审核流程定义", path: "/flow/definition" }],
+        },
+      ],
+    };
   },
   computed: {
     ...mapState({
       isCollapse: (state) => state.navCollapse.isCollapse,
-      menuData: (state) => state.userMenuData.menuData,
+      //请求菜单数据失败时，写死
+      // menuData: (state) => state.userMenuData.menuData,
     }),
   },
 };
@@ -89,5 +123,14 @@ export default {
 .isCollapse .el-submenu__title span,
 ::v-deep .el-menu--collapse .el-submenu__icon-arrow {
   display: none;
+}
+.el-submenu .el-menu-item {
+  background-color: rgb(38, 52, 69) !important;
+}
+.el-submenu .el-menu-item:hover {
+  background-color: #444 !important;
+}
+::v-deep .el-submenu__title:hover {
+  background-color: #444 !important;
 }
 </style>
