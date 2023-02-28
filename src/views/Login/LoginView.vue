@@ -47,6 +47,7 @@
 import { validateUsername } from "../../utils/validate";
 import { GetCaptChaCodeApi, LoginApi } from "../../request/api";
 // import { GetCaptchaCodeApi, LoginApi } from "@/request/api";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -85,9 +86,17 @@ export default {
     };
   },
   created() {
+    //验证码请求
     this.getCaptchacode();
+    //在重新登录的时候清除Vuex，menuData数据
+    this.changeMenuData([]);
   },
   methods: {
+    //在重新登录的时候清除Vuex，menuData数据
+    ...mapMutations({
+      changeMenuData: "userMenuData/changeMenuData",
+    }),
+
     async getCaptchacode() {
       let res = await GetCaptChaCodeApi();
       if (!res) return;

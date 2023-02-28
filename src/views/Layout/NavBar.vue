@@ -20,7 +20,7 @@
           <template slot="title">
             <!-- <i class="el-icon-location"></i> -->
             <svg-icon
-              icon-file-name="404"
+              :icon-file-name="item.icon"
               style="margin: 0 10px 0 4px"
             ></svg-icon>
             <span>{{ item.title }}</span>
@@ -33,7 +33,10 @@
           >
         </el-submenu>
         <el-menu-item :index="item.path" v-else>
-          <i class="el-icon-menu"></i>
+          <svg-icon
+            :icon-file-name="item.icon"
+            style="margin: 0 10px 0 4px"
+          ></svg-icon>
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
       </div>
@@ -50,10 +53,12 @@ export default {
         {
           title: "首页",
           path: "/",
+          icon: "dashboard",
         },
         {
           title: "客户管理",
           path: "/customer",
+          icon: "peoples",
           children: [
             { title: "客户档案", path: "/customer/customer" },
             { title: "拜访记录", path: "/customer/visit" },
@@ -62,6 +67,7 @@ export default {
         {
           title: "修养预约",
           path: "/business",
+          icon: "tool",
           children: [
             { title: "预约信息", path: "/business/appointment" },
             { title: "服务项", path: "/business/service" },
@@ -71,6 +77,7 @@ export default {
         {
           title: "流程管理",
           path: "/flow",
+          icon: "server",
           children: [{ title: "审核流程定义", path: "/flow/definition" }],
         },
       ],

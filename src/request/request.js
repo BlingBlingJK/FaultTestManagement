@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Message } from "element-ui";
+import router from "../router/index";
 
 const instance = axios.create({
   baseURL: "http://xue.cnkdl.cn:23683",
@@ -28,6 +29,12 @@ instance.interceptors.response.use(
     let res_data = res.data;
     if (res_data.code !== 200) {
       console.log(res_data);
+      //每次登录都报错的解决
+      if (res_data.code === 401) {
+        localStorage.removeItem("edb-authorization-token");
+        router.push("/");
+      }
+
       Message.error(res_data.msg || "网络请求错误！");
       return false;
     }
