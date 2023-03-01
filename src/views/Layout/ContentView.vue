@@ -28,6 +28,6 @@ export default {};
 }
 .fade-transition-enter-active,
 .fade-transition-leave-active {
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 </style>

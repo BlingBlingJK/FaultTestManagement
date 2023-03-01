@@ -9,6 +9,12 @@ import {
   Submenu,
   MenuItemGroup,
   MenuItem,
+  BreadcrumbItem,
+  Breadcrumb,
+  DropdownMenu,
+  DropdownItem,
+  Dropdown,
+  Tag,
 } from "element-ui";
 
 Vue.prototype.$message = Message;
@@ -21,3 +27,9 @@ Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItemGroup);
 Vue.use(MenuItem);
+Vue.use(BreadcrumbItem);
+Vue.use(Breadcrumb);
+Vue.use(Dropdown);
+Vue.use(DropdownItem);
+Vue.use(DropdownMenu);
+Vue.use(Tag);

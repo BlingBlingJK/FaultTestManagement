@@ -5,7 +5,6 @@
       <span v-show="!isCollapse">通用后台管理系统</span>
     </h1>
     <el-menu
-      default-active="2"
       class="el-menu-vertical-demo"
       background-color="#304156"
       text-color="#fff"
@@ -14,6 +13,7 @@
       :collapse="isCollapse"
       :collapse-transition="false"
       :router="true"
+      :default-active="$route.path"
     >
       <div v-for="(item, idx) in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
@@ -52,7 +52,7 @@ export default {
       menuData: [
         {
           title: "首页",
-          path: "/",
+          path: "/home",
           icon: "dashboard",
         },
         {

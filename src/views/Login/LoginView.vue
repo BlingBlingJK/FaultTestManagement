@@ -47,7 +47,7 @@
 import { validateUsername } from "../../utils/validate";
 import { GetCaptChaCodeApi, LoginApi } from "../../request/api";
 // import { GetCaptchaCodeApi, LoginApi } from "@/request/api";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -96,6 +96,9 @@ export default {
     ...mapMutations({
       changeMenuData: "userMenuData/changeMenuData",
     }),
+    ...mapActions({
+      asyncChangeUserInfo: "userInfo/asyncChangeUserInfo",
+    }),
 
     async getCaptchacode() {
       let res = await GetCaptChaCodeApi();
@@ -124,6 +127,7 @@ export default {
           localStorage.setItem("edb-authorization-token", res.token);
           //跳转首页
           this.$router.push("/");
+          this.asyncChangeUserInfo();
         } else {
           this.$message({
             type: "warning",
@@ -142,6 +146,7 @@ export default {
   height: 100%;
   background: url(../../assets/images/loginBg.jpg) center top no-repeat;
   position: relative;
+  background-size: cover;
   .login-box {
     width: 400px;
     background-color: #fff;

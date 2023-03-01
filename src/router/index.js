@@ -20,30 +20,38 @@ const routes = [
       {
         path: "/home",
         component: () => import("../views/HomeView.vue"),
+        meta: { titles: ["首页"] },
       },
       {
         path: "/customer/customer",
         component: () => import("../views/customer/CustomerView.vue"),
+        meta: { titles: ["客户管理", "客户档案"] },
       },
       {
         path: "/customer/visit",
         component: () => import("../views/customer/VisitView.vue"),
+        meta: { titles: ["客户管理", "拜访记录"] },
       },
       {
         path: "/flow/definition",
         component: () => import("../views/flow/DefinitionView.vue"),
+
+        meta: { titles: ["流程管理", "审核流程定义"] },
       },
       {
         path: "/business/appointment",
         component: () => import("../views/business/AppointmentView.vue"),
+        meta: { titles: ["修养预约", "预约信息"] },
       },
       {
         path: "/business/service",
         component: () => import("../views/business/ServiceView.vue"),
+        meta: { titles: ["修养预约", "服务项"] },
       },
       {
         path: "/business/statement",
         component: () => import("../views/business/StatementView.vue"),
+        meta: { titles: ["修养预约", "结算单"] },
       },
     ],
   },
@@ -83,16 +91,17 @@ router.beforeEach(async (to, from, next) => {
   // userMenuData：文件夹名称，menuData：数据;
   if (token && store.state.userMenuData.menuData.length === 0) {
     let GetUserRouterApiRes = await GetUserRouterApi();
-    console.log(GetUserRouterApiRes);
+    console.log("GetUserRouterApiRes", GetUserRouterApiRes);
     let newUserMenuData = [
       {
         title: "首页",
-        path: "/",
+        path: "/home",
         icon: "dashboard",
       },
     ];
-    let ret = GetUserRouterApiRes.data.map((item) => {
+    let ret = (GetUserRouterApiRes.data || []).map((item) => {
       //判断是否有孩子，二级菜单
+
       if (item.children) {
         return {
           title: item.meta.title,
@@ -115,12 +124,13 @@ router.beforeEach(async (to, from, next) => {
     });
     newUserMenuData = [...newUserMenuData, ...ret];
     store.commit("userMenuData/changeMenuData", newUserMenuData);
-    console.log(newUserMenuData);
+    // console.log(newUserMenuData);
     // 以上生成菜单数据
-    // 以下生成路由数据
+    // 以下生成路由数据,但数据坏了，所以写死了
     // let newChildrenRoutes = [
     //   {
     //     path: "/home",
+    //     meta:{titles:['首页']},
     //     component: () => import("../views/HomeView.vue"),
     //   },
     // ];
@@ -130,6 +140,7 @@ router.beforeEach(async (to, from, next) => {
     //       path: item.path + "/" + sitem.path,
     //       component: () =>
     //         import("../views" + item.path + "/" + sitem.name + "View.vue"),
+    //       meta:{title:{[item.meta.title,sitem.meta.title]}}
     //     };
     //   });
     //   newChildrenRoutes = [...newChildrenRoutes, ...ret];
