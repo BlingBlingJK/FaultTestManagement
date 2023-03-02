@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import MainLayout from "../../src/views/Layout/MainLayout.vue";
-
 import LoginView from "../../src/views/Login/LoginView.vue";
 import { GetUserRouterApi } from "../request/api";
 import store from "@/store";
@@ -21,6 +20,12 @@ const routes = [
         path: "/home",
         component: () => import("../views/HomeView.vue"),
         meta: { titles: ["首页"] },
+      },
+
+      {
+        path: "/profile",
+        meta: { titles: ["个人中心"] },
+        component: () => import("../views/Layout/ProfileView.vue"),
       },
       {
         path: "/customer/customer",
@@ -132,6 +137,11 @@ router.beforeEach(async (to, from, next) => {
     //     path: "/home",
     //     meta:{titles:['首页']},
     //     component: () => import("../views/HomeView.vue"),
+    //   },
+    // {
+    //     path: "/profile",
+    //     meta:{titles:['个人中心']},
+    // component: () => import("../views/Layout/ProfileView.vue"),
     //   },
     // ];
     // GetUserRouterApiRes.data.forEach((item) => {

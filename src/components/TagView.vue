@@ -11,8 +11,9 @@
           ? 'dark'
           : 'plain'
       "
-      @click="$router.push(item.path)"
+      @click="goTo(item.path)"
       @close="close(index)"
+      @contextmenu.native.prevent="rightClick($event, index)"
     >
       <i
         class="cir"
@@ -20,10 +21,19 @@
       ></i
       >{{ item.title }}</el-tag
     >
+    <TagsMenuView
+      v-show="isShowTagsMenu"
+      :clientX="clientX"
+      :clientY="clientY"
+      :clickIndex="clickIndex"
+      :tagsLength="tags.length"
+      @fn="clickMenu"
+    />
   </div>
 </template>
 
 <script>
+import TagsMenuView from "./TagsMenuView.vue";
 export default {
   data() {
     return {
@@ -33,10 +43,81 @@ export default {
           path: "/home",
         },
       ],
+      isShowTagsMenu: false,
+      clientX: 0,
+      clientY: 0,
+      clickIndex: 0,
     };
   },
+  mounted() {
+    document.addEventListener("click", this.closeMenu);
+  },
+  destroyed() {
+    document.removeEventListener("click", this.closeMenu);
+  },
+  components: {
+    TagsMenuView,
+  },
   methods: {
+    clickMenu(i) {
+      //刷新页面
+      if (i == 0) {
+        // this.$router.push(this.tags.path);
+      }
+      //关闭当前页
+      if (i == 1) {
+        this.tags = this.tags.filter(
+          (item, index) => index !== this.clickIndex
+        );
+      }
+      //关闭其他页
+      if (i == 2) {
+        this.tags = this.tags.filter(
+          (item, index) => index == this.clickIndex || index == 0
+        );
+      }
+      //关闭左侧
+      if (i == 3) {
+        this.tags = this.tags.filter(
+          (item, index) => index >= this.clickIndex || index == 0
+        );
+      }
+      //关闭右侧
+      if (i == 4) {
+        this.tags = this.tags.filter(
+          (item, index) => index <= this.clickIndex || index == 0
+        );
+      }
+      //全部关闭
+      if (i == 5) {
+        this.tags = [
+          {
+            title: "首页",
+            path: "/home",
+          },
+        ];
+        this.goTo("/home");
+      }
+    },
+
+    rightClick(e, i) {
+      // console.log("右键点击了", i);
+      this.isShowTagsMenu = true;
+      this.clientX = e.clientX;
+      this.clientY = e.clientY;
+      this.clickIndex = i;
+      //关闭浏览器默认菜单
+      // window.event.returnValue = false;
+      // return false;
+    },
+    closeMenu() {
+      this.isShowTagsMenu = false;
+    },
+    goTo(path) {
+      this.$router.push(path);
+    },
     close(i) {
+      this.closeMenu();
       if (this.tags[i].path === this.$route.path) {
         if (i !== this.tags.length - 1) {
           this.$router.push(this.tags[this.tags.length - 1].path);

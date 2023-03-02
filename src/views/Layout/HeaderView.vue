@@ -82,6 +82,9 @@ export default {
         localStorage.removeItem("edb-userInfo");
         this.$router.push("/login");
       }
+      if (command == "profile") {
+        this.$router.push("/profile");
+      }
     },
   },
 };

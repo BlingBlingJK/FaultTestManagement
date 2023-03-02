@@ -144,9 +144,10 @@ export default {
 .login-page {
   width: 100%;
   height: 100%;
-  background: url(../../assets/images/loginBg.jpg) center top no-repeat;
+  background: url(../../assets/wall.png) center top no-repeat;
   position: relative;
   background-size: cover;
+
   .login-box {
     width: 400px;
     background-color: #fff;
@@ -157,6 +158,7 @@ export default {
     padding-top: 20px;
     padding-right: 40px;
     border-radius: 20px;
+    opacity: 0.98;
     h1 {
       text-align: center;
       margin-bottom: 20px;

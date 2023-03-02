@@ -20,6 +20,7 @@ export default {
     $route: {
       immediate: true, //立即监听属性，刷新页面时
       handler() {
+        // console.log("$$", this.$route.meta.titles);
         this.titles = this.$route.meta.titles;
       },
     },
