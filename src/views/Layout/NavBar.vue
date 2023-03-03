@@ -99,7 +99,7 @@ export default {
   width: 220px;
   background-color: #304156;
   box-shadow: 5px 0 5px #bbb;
-  position: relative; //阴影重叠消除
+  position: fixed; //阴影重叠消除
   transition: all 0.5s; //收缩动画，延时一秒
 
   .el-menu {

@@ -62,7 +62,7 @@ export default {
     clickMenu(i) {
       //刷新页面
       if (i == 0) {
-        // this.$router.push(this.tags.path);
+        console.log("shuaxin");
       }
       //关闭当前页
       if (i == 1) {

@@ -27,7 +27,8 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     let res_data = res.data;
-    if (res_data.code !== 200) {
+    //有的不会给code,所以先判断是否有code
+    if (res_data.code && res_data.code !== 200) {
       console.log(res_data);
       //每次登录都报错的解决
       if (res_data.code === 401) {

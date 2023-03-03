@@ -15,6 +15,10 @@ import {
   DropdownItem,
   Dropdown,
   Tag,
+  Table,
+  TableColumn,
+  Pagination,
+  Upload,
 } from "element-ui";
 
 Vue.prototype.$message = Message;
@@ -33,3 +37,7 @@ Vue.use(Dropdown);
 Vue.use(DropdownItem);
 Vue.use(DropdownMenu);
 Vue.use(Tag);
+Vue.use(TableColumn);
+Vue.use(Table);
+Vue.use(Pagination);
+Vue.use(Upload);
