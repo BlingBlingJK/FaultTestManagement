@@ -7,8 +7,12 @@ import router from "./router";
 import store from "./store";
 import "@/assets/icons/index";
 import "@/utils/filters";
+import dataV from "@jiaminghi/data-view";
+import echarts from "echarts";
 
+Vue.use(dataV);
 Vue.config.productionTip = false;
+Vue.prototype.$echarts = echarts;
 
 new Vue({
   router,
