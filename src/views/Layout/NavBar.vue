@@ -1,8 +1,8 @@
 <template>
   <div class="navbar" :class="{ isCollapse: isCollapse }">
     <h1 class="logo">
-      <img src="../../assets/images/logo.png" alt="" width="32px" />
-      <span v-show="!isCollapse">通用后台管理系统</span>
+      <img src="../../assets/images/logo1.png" alt="" width="32px" />
+      <span v-show="!isCollapse">列车故障测试管理系统</span>
     </h1>
     <el-menu
       class="el-menu-vertical-demo"
@@ -49,45 +49,45 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      menuData: [
-        {
-          title: "首页",
-          path: "/home",
-          icon: "dashboard",
-        },
-        {
-          title: "客户管理",
-          path: "/customer",
-          icon: "peoples",
-          children: [
-            { title: "客户档案", path: "/customer/customer" },
-            { title: "拜访记录", path: "/customer/visit" },
-          ],
-        },
-        {
-          title: "修养预约",
-          path: "/business",
-          icon: "tool",
-          children: [
-            { title: "预约信息", path: "/business/appointment" },
-            { title: "服务项", path: "/business/service" },
-            { title: "结算单", path: "/business/statement" },
-          ],
-        },
-        {
-          title: "流程管理",
-          path: "/flow",
-          icon: "server",
-          children: [{ title: "审核流程定义", path: "/flow/definition" }],
-        },
-      ],
+      // menuData: [
+      // {
+      //   title: "首页",
+      //   path: "/home",
+      //   icon: "dashboard",
+      // },
+      // {
+      //   title: "客户管理",
+      //   path: "/customer",
+      //   icon: "peoples",
+      //   children: [
+      //     { title: "客户档案", path: "/customer/customer" },
+      //     { title: "拜访记录", path: "/customer/visit" },
+      //   ],
+      // },
+      // {
+      //   title: "修养预约",
+      //   path: "/business",
+      //   icon: "tool",
+      //   children: [
+      //     { title: "预约信息", path: "/business/appointment" },
+      //     { title: "服务项", path: "/business/service" },
+      //     { title: "结算单", path: "/business/statement" },
+      //   ],
+      // },
+      // {
+      //   title: "流程管理",
+      //   path: "/flow",
+      //   icon: "server",
+      //   children: [{ title: "审核流程定义", path: "/flow/definition" }],
+      // },
+      // ],
     };
   },
   computed: {
     ...mapState({
       isCollapse: (state) => state.navCollapse.isCollapse,
       //请求菜单数据失败时，写死
-      // menuData: (state) => state.userMenuData.menuData,
+      menuData: (state) => state.userMenuData.menuData,
     }),
   },
 };
@@ -112,8 +112,9 @@ export default {
     position: relative;
     img {
       vertical-align: middle;
+      border-radius: 10px;
     }
-    padding: 10px 16px;
+    padding: 10px 10px;
     span {
       min-width: 130px;
       color: #fff;
@@ -122,7 +123,7 @@ export default {
       //脱标处理
       position: absolute;
       top: 16px;
-      padding-left: 10px;
+      padding-left: 5px;
     }
   }
 }

@@ -16,7 +16,7 @@
         size="small"
         type="success"
         @click="submitUpload"
-        >上传到服务器</el-button
+        >上传</el-button
       >
       <div slot="tip" class="el-upload__tip">
         只能上传jpg/png文件，且不超过500kb

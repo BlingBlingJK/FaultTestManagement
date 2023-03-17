@@ -132,35 +132,35 @@ router.beforeEach(async (to, from, next) => {
     // console.log(newUserMenuData);
     // 以上生成菜单数据
     // 以下生成路由数据,但数据坏了，所以写死了
-    // let newChildrenRoutes = [
-    //   {
-    //     path: "/home",
-    //     meta:{titles:['首页']},
-    //     component: () => import("../views/HomeView.vue"),
-    //   },
-    // {
-    //     path: "/profile",
-    //     meta:{titles:['个人中心']},
-    // component: () => import("../views/Layout/ProfileView.vue"),
-    //   },
-    // ];
-    // GetUserRouterApiRes.data.forEach((item) => {
-    //   let ret = item.children.map((sitem) => {
-    //     return {
-    //       path: item.path + "/" + sitem.path,
-    //       component: () =>
-    //         import("../views" + item.path + "/" + sitem.name + "View.vue"),
-    //       meta:{title:{[item.meta.title,sitem.meta.title]}}
-    //     };
-    //   });
-    //   newChildrenRoutes = [...newChildrenRoutes, ...ret];
-    // });
-    // //添到mainlayout路由中
-    // newChildrenRoutes.forEach((item) => {
-    //   router.addRoute("mainlayout", item);
-    // });
-    // next(to.path); //重新进路由守卫，查验一遍
-    // return;
+    let newChildrenRoutes = [
+      {
+        path: "/home",
+        meta: { titles: ["首页"] },
+        component: () => import("../views/HomeView.vue"),
+      },
+      {
+        path: "/profile",
+        meta: { titles: ["个人中心"] },
+        component: () => import("../views/Layout/ProfileView.vue"),
+      },
+    ];
+    GetUserRouterApiRes.data.forEach((item) => {
+      let ret = item.children.map((sitem) => {
+        return {
+          path: item.path + "/" + sitem.path,
+          component: () =>
+            import("../views" + item.path + "/" + sitem.name + "View.vue"),
+          meta: { title: [item.meta.title, sitem.meta.title] },
+        };
+      });
+      newChildrenRoutes = [...newChildrenRoutes, ...ret];
+    });
+    //添到mainlayout路由中
+    newChildrenRoutes.forEach((item) => {
+      router.addRoute("mainlayout", item);
+    });
+    next(to.path); //重新进路由守卫，查验一遍
+    return;
   }
   next();
 });

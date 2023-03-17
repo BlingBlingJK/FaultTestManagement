@@ -51,32 +51,32 @@
 </template>
 
 <script>
-// import { GetCustomListApi } from "@/request/api";
+import { GetCustomListApi } from "@/request/api";
 import { CustomExportApi } from "@/request/api";
 import { saveAs } from "file-saver";
 export default {
   data() {
     return {
-      tableData: new Array(86).fill({
-        phone: "1335679763",
-        sex: "0",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄",
-        inputUserName: "超级管理员",
-        entryTime: "2022-09-13T17:13:33.000+08:00",
-      }),
-
+      tableData: [],
+      // tableData: new Array(86).fill({
+      //   phone: "1335679763",
+      //   sex: "0",
+      //   name: "王小虎",
+      //   address: "上海市普陀区金沙江路 1518 弄",
+      //   inputUserName: "超级管理员",
+      //   entryTime: "2022-09-13T17:13:33.000+08:00",
+      // }),
       multipleSelection: [],
       pageNum: 1,
       pageSize: 10,
-      // total: 86,
+      total: 8,
     };
   },
-  computed: {
-    total() {
-      return this.tableData.length;
-    },
-  },
+  // computed: {
+  //   total() {
+  //     return this.tableData.length;
+  //   },
+  // },
   methods: {
     async exportExl() {
       const CustomExportRes = await CustomExportApi(
@@ -109,24 +109,27 @@ export default {
     },
     handleSizeChange(val) {
       this.pageSize = val;
+      this.getTableData();
     },
     handleCurrentChange(val) {
       this.pageNum = val;
+      this.getTableData();
     },
-    // async getTableData() {
-    //   const GetCustomListApiRes = await GetCustomListApi({
-    //     pageNum: this.pageNum,
-    //     pageSize: this.pageSize,
-    //   });
-    //   if (!GetCustomListApiRes) return;
-    //   console.log("GetCustomListApi", GetCustomListApiRes);
-    //   this.tableData = GetCustomListApiRes.rows;
-    //   this.total = GetCustomListApiRes.total;
-    // },
+    async getTableData() {
+      console.log("请求已发送");
+      const GetCustomListApiRes = await GetCustomListApi({
+        pageNum: this.pageNum,
+        pageSize: this.pageSize,
+      });
+      if (!GetCustomListApiRes) return;
+      console.log("GetCustomListApi", GetCustomListApiRes);
+      this.tableData = GetCustomListApiRes.rows;
+      this.total = GetCustomListApiRes.total;
+    },
   },
-  // created() {
-  //   this.getTableData();
-  // },
+  mounted() {
+    this.getTableData();
+  },
 };
 </script>
 

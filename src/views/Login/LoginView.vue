@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-box">
-      <h1>后台管理系统</h1>
+      <h1>列车故障测试管理系统</h1>
       <el-form
         :model="ruleForm"
         status-icon
@@ -17,7 +17,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="'密\xa0\xa0\xa0\xa0码'" prop="password">
+        <el-form-item :label="'密码'" prop="password">
           <el-input
             type="password"
             v-model="ruleForm.password"
@@ -144,7 +144,7 @@ export default {
 .login-page {
   width: 100%;
   height: 100%;
-  background: url(../../assets/wall.png) center top no-repeat;
+  background: url(../../assets/images/bgtrain.jpg) center top no-repeat;
   position: relative;
   background-size: cover;
 
@@ -153,7 +153,7 @@ export default {
     background-color: #fff;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform: translate(-50%, -50%);
     padding-top: 20px;
     padding-right: 40px;
