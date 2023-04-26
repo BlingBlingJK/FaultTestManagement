@@ -39,6 +39,7 @@ export default {
       // 添加文件触发执行这里的代码
       this.fileList = fileList;
     },
+    //上传文件
     async submitUpload() {
       console.log("点击上传按钮的时候执行这个函数");
       console.log(this.fileList);

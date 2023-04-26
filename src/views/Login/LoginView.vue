@@ -17,7 +17,7 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item :label="'密码'" prop="password">
+        <el-form-item :label="`密\xa0\xa0\xa0\xa0码`" prop="password">
           <el-input
             type="password"
             v-model="ruleForm.password"
@@ -61,7 +61,8 @@ export default {
           {
             required: true, // 必填项
             message: "用户名不能为空！", // 提示语
-            trigger: "blur",
+            // trigger: "change", //发生改变的时候校验
+            trigger: "blur", //失焦的时候校验
           },
           // 自定义校验的写法，函数写在另外的文件里
           { validator: validateUsername, trigger: "blur" },
