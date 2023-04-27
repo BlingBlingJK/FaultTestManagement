@@ -65,7 +65,7 @@ export default {
             trigger: "blur", //失焦的时候校验
           },
           // 自定义校验的写法，函数写在另外的文件里
-          { validator: validateUsername, trigger: "blur" },
+          { validator: validateUsername, trigger: "blur" }, //validateUsername像是他自带的，不需要传参
         ],
         password: [
           {
@@ -100,7 +100,7 @@ export default {
     ...mapActions({
       asyncChangeUserInfo: "userInfo/asyncChangeUserInfo",
     }),
-
+    //getCaptchacode函数，获取验证码的函数进行异步封装，然后在created和click时调用
     async getCaptchacode() {
       let res = await GetCaptChaCodeApi();
       if (!res) return;
@@ -110,8 +110,11 @@ export default {
       localStorage.setItem("edb-captcha-uuid", res.uuid);
     },
     submitForm(formName) {
+      //做校验
       this.$refs[formName].validate(async (valid) => {
+        //validate函数也是表单提供的
         if (valid) {
+          //表示通过
           let res = await LoginApi({
             username: this.ruleForm.username,
             password: this.ruleForm.password,
@@ -130,6 +133,7 @@ export default {
           this.$router.push("/");
           this.asyncChangeUserInfo();
         } else {
+          //表示失败
           this.$message({
             type: "warning",
             message: "请输入正确信息",

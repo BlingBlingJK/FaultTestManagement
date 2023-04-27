@@ -21,7 +21,7 @@ import {
   Upload,
 } from "element-ui";
 
-Vue.prototype.$message = Message;
+Vue.prototype.$message = Message; //massage（提示）不是标签，但需要被this找到，所以放在原型上
 // 注册
 Vue.use(Button);
 Vue.use(Input);
