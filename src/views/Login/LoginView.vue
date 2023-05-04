@@ -124,6 +124,7 @@ export default {
           //业务的成功和失败
           if (!res) return;
           //提示登录成功
+          //Vue.prototype.$message = Message;
           this.$message.success("登录成功！");
           //清除uuid
           localStorage.removeItem("edb-captcha-uuid");
@@ -131,7 +132,7 @@ export default {
           localStorage.setItem("edb-authorization-token", res.token);
           //跳转首页
           this.$router.push("/");
-          this.asyncChangeUserInfo()58
+          this.asyncChangeUserInfo();
         } else {
           //表示失败
           this.$message({

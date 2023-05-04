@@ -73,13 +73,14 @@ const routes = [
     component: () => import("../views/notFound404.vue"),
   },
 ];
-
+//使用 router.beforeEach 注册一个全局前置守卫：
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
 });
-
+//导航钩子类似于生命周期钩子，包含路由进入前，进入后，更新时，退出前等几个周期，主要用于控制导航的前进后退或跳转等。
+//其中router.beforeEach就是路由进入前的周期，同时有路由的来源和去向两个参数，可以判断和控制当前路由的走向和重定向。
 router.beforeEach(async (to, from, next) => {
   const token = localStorage.getItem("edb-authorization-token");
   //两个经典的逻辑
