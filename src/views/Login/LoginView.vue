@@ -131,7 +131,7 @@ export default {
           localStorage.setItem("edb-authorization-token", res.token);
           //跳转首页
           this.$router.push("/");
-          this.asyncChangeUserInfo();
+          this.asyncChangeUserInfo()58
         } else {
           //表示失败
           this.$message({
