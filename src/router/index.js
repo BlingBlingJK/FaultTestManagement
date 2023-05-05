@@ -18,7 +18,7 @@ const routes = [
       // 初始值
       {
         path: "/home",
-        component: () => import("../views/HomeView.vue"),
+        component: () => import("../views/HomeView.vue"), //路由懒加载
         meta: { titles: ["首页"] },
       },
 
