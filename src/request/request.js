@@ -30,7 +30,7 @@ instance.interceptors.response.use(
     //有的不会给code,所以先判断是否有code
     if (res_data.code && res_data.code !== 200) {
       // console.log(res_data);
-      //每次登录都报错的解决
+      //每次登录都报错的解决,token过期的情况
       if (res_data.code === 401) {
         localStorage.removeItem("edb-authorization-token");
         router.push("/");

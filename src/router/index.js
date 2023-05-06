@@ -1,7 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import MainLayout from "../../src/views/Layout/MainLayout.vue";
-import LoginView from "../../src/views/Login/LoginView.vue";
 import { GetUserRouterApi } from "../request/api";
 import store from "@/store";
 
@@ -11,58 +9,57 @@ const routes = [
   {
     path: "/",
     name: "mainlayout",
-    component: MainLayout,
+    component: () => import("../views/Layout/MainLayout.vue"),
     redirect: "/home",
     // 路由不能写死，不然没有权限也能访问
     children: [
       // 初始值
-      {
-        path: "/home",
-        component: () => import("../views/HomeView.vue"), //路由懒加载
-        // meta: { titles: ["首页"] },
-      },
-
-      {
-        path: "/profile",
-        // meta: { titles: ["个人中心"] },
-        component: () => import("../views/Layout/ProfileView.vue"),
-      },
-      {
-        path: "/customer/customer",
-        component: () => import("../views/customer/CustomerView.vue"),
-        // meta: { titles: ["客户管理", "客户档案"] },
-      },
-      {
-        path: "/customer/visit",
-        component: () => import("../views/customer/VisitView.vue"),
-        // meta: { titles: ["客户管理", "拜访记录"] },
-      },
-      {
-        path: "/flow/definition",
-        component: () => import("../views/flow/DefinitionView.vue"),
-        // meta: { titles: ["流程管理", "审核流程定义"] },
-      },
-      {
-        path: "/business/appointment",
-        component: () => import("../views/business/AppointmentView.vue"),
-        // meta: { titles: ["修养预约", "预约信息", "fjk"] },
-      },
-      {
-        path: "/business/service",
-        component: () => import("../views/business/ServiceView.vue"),
-        // meta: { titles: ["修养预约", "服务项"] },
-      },
-      {
-        path: "/business/statement",
-        // component: () => import("../views/business/StatementView.vue"),
-        // meta: { titles: ["修养预约", "结算单"] },
-      },
+      // {
+      //   path: "/home",
+      //   component: () => import("../views/HomeView.vue"), //路由懒加载
+      //   meta: { titles: ["首页"] },
+      // },
+      // {
+      //   path: "/profile",
+      //   meta: { titles: ["个人中心"] },
+      //   component: () => import("../views/Layout/ProfileView.vue"),
+      // },
+      // {
+      //   path: "/customer/customer",
+      //   component: () => import("../views/customer/CustomerView.vue"),
+      //   meta: { titles: ["客户管理", "客户档案"] },
+      // },
+      // {
+      //   path: "/customer/visit",
+      //   component: () => import("../views/customer/VisitView.vue"),
+      //   meta: { titles: ["客户管理", "拜访记录"] },
+      // },
+      // {
+      //   path: "/flow/definition",
+      //   component: () => import("../views/flow/DefinitionView.vue"),
+      //   meta: { titles: ["流程管理", "审核流程定义"] },
+      // },
+      // {
+      //   path: "/business/appointment",
+      //   component: () => import("../views/business/AppointmentView.vue"),
+      //   meta: { titles: ["修养预约", "预约信息", "fjk"] },
+      // },
+      // {
+      //   path: "/business/service",
+      //   component: () => import("../views/business/ServiceView.vue"),
+      //   meta: { titles: ["修养预约", "服务项"] },
+      // },
+      // {
+      //   path: "/business/statement",
+      //   component: () => import("../views/business/StatementView.vue"),
+      //   meta: { titles: ["修养预约", "结算单"] },
+      // },
     ],
   },
   {
     path: "/login",
     name: "login",
-    component: LoginView,
+    component: () => import("../views/Login/LoginView.vue"),
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -96,7 +93,6 @@ router.beforeEach(async (to, from, next) => {
   // userMenuData：文件夹名称，menuData：数据;
   if (token && store.state.userMenuData.menuData.length === 0) {
     let GetUserRouterApiRes = await GetUserRouterApi();
-    console.log("GetUserRouterApiRes", GetUserRouterApiRes);
     let newUserMenuData = [
       {
         title: "首页",
@@ -129,9 +125,8 @@ router.beforeEach(async (to, from, next) => {
     });
     newUserMenuData = [...newUserMenuData, ...ret];
     store.commit("userMenuData/changeMenuData", newUserMenuData);
-    // console.log(newUserMenuData);
     // 以上生成菜单数据
-    // 以下生成路由数据,但数据坏了，所以写死了
+    // 以下生成路由数据,但数据坏了，所以写死了，和route相斥
     let newChildrenRoutes = [
       {
         path: "/home",
@@ -144,6 +139,7 @@ router.beforeEach(async (to, from, next) => {
         component: () => import("../views/Layout/ProfileView.vue"),
       },
     ];
+    //自动生成
     GetUserRouterApiRes.data.forEach((item) => {
       let ret = item.children.map((sitem) => {
         return {
