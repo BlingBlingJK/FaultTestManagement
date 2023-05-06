@@ -19,44 +19,43 @@ const routes = [
       {
         path: "/home",
         component: () => import("../views/HomeView.vue"), //路由懒加载
-        meta: { titles: ["首页"] },
+        // meta: { titles: ["首页"] },
       },
 
       {
         path: "/profile",
-        meta: { titles: ["个人中心"] },
+        // meta: { titles: ["个人中心"] },
         component: () => import("../views/Layout/ProfileView.vue"),
       },
       {
         path: "/customer/customer",
         component: () => import("../views/customer/CustomerView.vue"),
-        meta: { titles: ["客户管理", "客户档案"] },
+        // meta: { titles: ["客户管理", "客户档案"] },
       },
       {
         path: "/customer/visit",
         component: () => import("../views/customer/VisitView.vue"),
-        meta: { titles: ["客户管理", "拜访记录"] },
+        // meta: { titles: ["客户管理", "拜访记录"] },
       },
       {
         path: "/flow/definition",
         component: () => import("../views/flow/DefinitionView.vue"),
-
-        meta: { titles: ["流程管理", "审核流程定义"] },
+        // meta: { titles: ["流程管理", "审核流程定义"] },
       },
       {
         path: "/business/appointment",
         component: () => import("../views/business/AppointmentView.vue"),
-        meta: { titles: ["修养预约", "预约信息"] },
+        // meta: { titles: ["修养预约", "预约信息", "fjk"] },
       },
       {
         path: "/business/service",
         component: () => import("../views/business/ServiceView.vue"),
-        meta: { titles: ["修养预约", "服务项"] },
+        // meta: { titles: ["修养预约", "服务项"] },
       },
       {
         path: "/business/statement",
-        component: () => import("../views/business/StatementView.vue"),
-        meta: { titles: ["修养预约", "结算单"] },
+        // component: () => import("../views/business/StatementView.vue"),
+        // meta: { titles: ["修养预约", "结算单"] },
       },
     ],
   },
