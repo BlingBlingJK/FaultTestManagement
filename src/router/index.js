@@ -4,7 +4,8 @@ import { GetUserRouterApi } from "../request/api";
 import store from "@/store";
 
 Vue.use(VueRouter);
-
+//如果有人访问某个页面，前端要判断是否有该路由和对应的组件
+//用户菜单需要先请求到，再把数据显示在Navbar中，所以路由不能写在某个组件中，得单独写
 const routes = [
   {
     path: "/",
@@ -93,6 +94,7 @@ router.beforeEach(async (to, from, next) => {
   // userMenuData：文件夹名称，menuData：数据;
   if (token && store.state.userMenuData.menuData.length === 0) {
     let GetUserRouterApiRes = await GetUserRouterApi();
+    //场景分析：如果切换账号后发现还是上一个账号的菜单栏，说明用的是在vux数据基础上进行了push，不是新建了一个数组
     let newUserMenuData = [
       {
         title: "首页",
@@ -124,6 +126,8 @@ router.beforeEach(async (to, from, next) => {
       }
     });
     newUserMenuData = [...newUserMenuData, ...ret];
+    //js文件中调用vuex,用store
+    //每次切换账号都是一个新的数组，不用清除上一个账号的信息
     store.commit("userMenuData/changeMenuData", newUserMenuData);
     // 以上生成菜单数据
     // 以下生成路由数据,但数据坏了，所以写死了，和route相斥

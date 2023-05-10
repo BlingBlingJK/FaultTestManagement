@@ -83,6 +83,7 @@ export default {
       // ],
     };
   },
+  //从vuex里面拿数据进行渲染
   computed: {
     ...mapState({
       isCollapse: (state) => state.navCollapse.isCollapse,

@@ -1,4 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
+//引入svg图标的配置
 const path = require("path");
 module.exports = defineConfig({
   transpileDependencies: true,
